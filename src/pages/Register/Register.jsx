@@ -14,6 +14,12 @@ const Register = () => {
     const email = form.email.value;
     const pass = form.password.value;
     console.log(email, pass, name, photo);
+
+    createUser(email, pass)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((err) => console.log(err.message));
   };
   return (
     <div className="hero min-h-screen">
@@ -22,11 +28,11 @@ const Register = () => {
           <div className="w-1/2 hidden md:block">
             <img className="w-full" src={loginImg} alt="Login" />
           </div>
-          <div className="w-full px-4 md:px-7 shadow-md md:w-1/2 my-auto py-10 shadow-[#4f4370] ">
+          <div className="w-full px-4 md:px-8 shadow-md md:w-1/2 my-auto py-10 shadow-[#4f4370] ">
             <div className=" pb-2">
-              <Title>Login</Title>
+              <Title>Register Now</Title>
             </div>
-            <form className=" ">
+            <form onSubmit={handleSubmit}>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text text-lg text-[#9f99aa] font-semibold">
@@ -34,7 +40,7 @@ const Register = () => {
                   </span>
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   placeholder="photo url"
                   name="photo"
                   className="input input-ed rounded-sm"
@@ -48,9 +54,9 @@ const Register = () => {
                   </span>
                 </label>
                 <input
-                  type="email"
-                  placeholder="email"
-                  name="full name"
+                  type="text"
+                  placeholder="full name"
+                  name="name"
                   className="input input-ed rounded-sm"
                   required
                 />
@@ -82,18 +88,10 @@ const Register = () => {
                   className="input input-ed rounded-sm"
                   required
                 />
-                <label className="label">
-                  <a
-                    href="#"
-                    className="label-text  text-[#9f99aa] font-semibold"
-                  >
-                    Forgot password?
-                  </a>
-                </label>
               </div>
               <div className="form-control mt-6">
                 <button className="btn bg-gradient-to-r from-[#3144D7] to-[#801C98] font-semibold text-white border-none">
-                  Login
+                  Sign up
                 </button>
               </div>
             </form>

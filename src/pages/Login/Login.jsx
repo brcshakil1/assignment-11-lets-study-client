@@ -27,7 +27,7 @@ const Login = () => {
           <div className="w-1/2 hidden md:block">
             <img className="w-full" src={loginImg} alt="Login" />
           </div>
-          <div className="w-full px-4 md:px-7 shadow-md md:w-1/2 my-auto py-10 shadow-[#4f4370] ">
+          <div className="w-full px-4 md:px-8 shadow-md md:w-1/2 my-auto py-10 shadow-[#4f4370] ">
             <div className=" pb-2">
               <Title>Login</Title>
             </div>
