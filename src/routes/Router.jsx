@@ -3,6 +3,8 @@ import MainLayout from "./../layout/MainLayout";
 import Login from "./../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Home from "../pages/Home/Home";
+import CreateAssignment from "../pages/CreateAssignment/CreateAssignment";
+import PrivetRoute from "./PrivetRoute";
 
 const Router = createBrowserRouter([
   {
@@ -12,6 +14,14 @@ const Router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/create-assignment",
+        element: (
+          <PrivetRoute>
+            <CreateAssignment />
+          </PrivetRoute>
+        ),
       },
     ],
   },
