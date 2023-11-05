@@ -4,10 +4,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Container from "./../../components/ui/Container";
 import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import useAxios from "../../hooks/useAxios";
 
 const CreateAssignment = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { user } = useAuth();
+  const axios = useAxios();
 
   const handleCreateAssignment = (e) => {
     e.preventDefault();
@@ -18,7 +21,15 @@ const CreateAssignment = () => {
     const marks = form.marks.value;
     const difficulty = form.difficulty.value;
     const date = startDate;
-    const userEmail = user?.email;
+    const creatorEmail = user?.email;
+
+    if (date < new Date()) {
+      return toast.error("You can't select past dates");
+    }
+
+    if (marks > 100 || marks < 30) {
+      return toast.error("Total assignment marks must be between 30 to 100");
+    }
 
     const createdAssignment = {
       title,
@@ -27,8 +38,13 @@ const CreateAssignment = () => {
       marks,
       difficulty,
       date,
-      userEmail,
+      creatorEmail,
     };
+
+    axios.post("/create-assignment", createdAssignment).then((res) => {
+      console.log(res.data);
+      toast.success("Successfully created an assignment");
+    });
 
     console.log(createdAssignment);
   };

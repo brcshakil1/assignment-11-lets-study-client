@@ -5,6 +5,7 @@ import Register from "../pages/Register/Register";
 import Home from "../pages/Home/Home";
 import CreateAssignment from "../pages/CreateAssignment/CreateAssignment";
 import PrivetRoute from "./PrivetRoute";
+import Assignments from "../pages/Assignments/Assignments";
 
 const Router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const Router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/assignments",
+        element: <Assignments />,
       },
       {
         path: "/create-assignment",
