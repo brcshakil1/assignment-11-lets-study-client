@@ -1,10 +1,14 @@
+import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login3.png";
 import Title from "../../components/Title/Title";
 import Container from "../../components/ui/Container";
 import useAuth from "./../../hooks/useAuth";
+import { BsGithub, BsGoogle } from "react-icons/bs";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const { signInUser } = useAuth();
+  const { signInUser, googleSignIn, githubSignIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,12 +18,35 @@ const Login = () => {
     console.log(email, pass);
     signInUser(email, pass)
       .then((result) => {
-        console.log(result.user);
+        if (result) toast.success("logged in successfully!");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err.message);
+        toast.error(err.message);
       });
   };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        console.log(result.user);
+        toast.success("logged in successfully!");
+        navigate("/");
+      })
+      .catch((err) => toast.error(err.message));
+  };
+
+  const handleGithubSignIn = () => {
+    githubSignIn()
+      .then((result) => {
+        console.log(result.user);
+        toast.success("logged in successfully!");
+        navigate("/");
+      })
+      .catch((err) => console.log(err.message));
+  };
+
   return (
     <div className="hero min-h-screen">
       <Container>
@@ -74,6 +101,34 @@ const Login = () => {
                 </button>
               </div>
             </form>
+            <p className="text-white pt-3">
+              Don{`'`}t have an account?{" "}
+              <Link to="/register " className="text-[#3144D7]">
+                Register Now
+              </Link>
+            </p>
+
+            <div className="flex items-center gap-2 mt-4">
+              <div className="w-full h-[2px] bg-white"></div>
+              <p className="text-center text-xl font-bold text-white">Or</p>
+              <div className="w-full h-[2px] bg-white"></div>
+            </div>
+
+            <div className="mt-6 flex gap-5 justify-center flex-wrap">
+              <button
+                onClick={handleGoogleSignIn}
+                className="btn bg-gradient-to-r w-full md:w-auto from-[#3144D7] to-[#801C98] font-semibold text-white border-none"
+              >
+                <BsGoogle className="text-xl" /> Continue With Google
+              </button>
+              <button
+                onClick={handleGoogleSignIn}
+                className="btn bg-gradient-to-r w-full md:w-auto from-[#3144D7] to-[#801C98] font-semibold text-white border-none"
+              >
+                <BsGithub onClick={handleGithubSignIn} className="text-xl" />{" "}
+                Continue With Github
+              </button>
+            </div>
           </div>
         </div>
       </Container>
