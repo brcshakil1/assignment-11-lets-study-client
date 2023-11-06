@@ -4,22 +4,24 @@ import bannerImg from "../../assets/banner/assignment-banner.jpg";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import AssignmentCard from "../../components/AssignmentCard/AssignmentCard";
+import { useState } from "react";
 
 const Assignments = () => {
+  const [difficulty, setDifficulty] = useState("");
   const axios = useAxios();
 
-  const getAssignments = async () => {
-    const res = await axios.get("/all-assignments");
-    return res;
-  };
+  // const getAssignments = async () => {
+  //   const res = ;
+  //   return res;
+  // };
 
   const {
     isPending,
     error,
     data: assignment,
   } = useQuery({
-    queryKey: ["all-assignment"],
-    queryFn: getAssignments,
+    queryKey: ["all-assignment", difficulty],
+    queryFn: () => axios.get(`/all-assignments?difficulty=${difficulty}`),
   });
 
   if (isPending) {
@@ -29,25 +31,44 @@ const Assignments = () => {
   if (error) {
     return <p>{error}.</p>;
   }
-  console.log(assignment?.data, isPending, error);
-
-  //   useEffect(() => {
-  //     axios.get("/all-assignments").then((res) => {
-  //       console.log(res.data);
-  //       setAssignments(res.data);
-  //     });
-  //   }, [axios]);
+  // console.log(assignment?.data, isPending, error);
+  console.log(difficulty);
   return (
     <Container>
       <div className="min-h-screen py-6">
-        <div className="w-full h-[400px]">
-          <img className="w-full h-full object-cover" src={bannerImg} alt="" />
-          <Title>Assignment-Count - </Title>
+        <div className="w-full h-[400px] relative rounded-lg overflow-hidden">
+          <img className="w-full h-full object-cover " src={bannerImg} alt="" />
+          <div className="absolute w-full h-full grid place-items-center bg-[#000000b3] top-0 left-0">
+            <h2 className="text-[#cfccd5] text-3xl font-bold">
+              Take a challenge
+            </h2>
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-20">
-          {assignment?.data?.map((assignment) => (
-            <AssignmentCard key={assignment._id} assignment={assignment} />
-          ))}
+        <div className="text-center pt-10 md:pt-16">
+          <Title>Assignments</Title>
+        </div>
+        <div>
+          <div className="pt-10 pb-5">
+            <select
+              name=""
+              onChange={(e) => setDifficulty(e.target.value)}
+              defaultValue="Filter by difficulty"
+              className="border-0 rounded-md p-2"
+            >
+              <option disabled selected>
+                Filter by difficulty
+              </option>
+              <option value="">All</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-10">
+            {assignment?.data?.map((assignment) => (
+              <AssignmentCard key={assignment._id} assignment={assignment} />
+            ))}
+          </div>
         </div>
       </div>
     </Container>

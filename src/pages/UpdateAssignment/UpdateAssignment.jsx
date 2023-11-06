@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import useAxios from "../../hooks/useAxios";
 // import { useMutation } from "@tanstack/react-query";
 
-const CreateAssignment = () => {
+const UpdateAssignment = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { user } = useAuth();
   const axios = useAxios();
@@ -34,7 +34,7 @@ const CreateAssignment = () => {
 
   // console.log(mutate);
 
-  const handleCreateAssignment = (e) => {
+  const handleUpdateAssignment = (e) => {
     e.preventDefault();
 
     const createdAssignment = {
@@ -57,7 +57,7 @@ const CreateAssignment = () => {
       );
     }
 
-    axios.post("/user/create-assignment", createdAssignment).then((res) => {
+    axios.put("/user/update-assignment", createdAssignment).then((res) => {
       console.log(res.data);
       toast.success("Successfully created an assignment");
     });
@@ -68,9 +68,9 @@ const CreateAssignment = () => {
       <div className="hero min-h-screen py-10 md:py-14">
         <div className="w-full px-4 md:px-8 shadow-md md:w-1/2 my-auto py-10 shadow-[#4f4370] ">
           <div className=" pb-2">
-            <Title>Create an assignment</Title>
+            <Title>Update your assignment</Title>
           </div>
-          <form onSubmit={handleCreateAssignment}>
+          <form onSubmit={handleUpdateAssignment}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text text-lg text-[#9f99aa] font-semibold">
@@ -178,4 +178,4 @@ const CreateAssignment = () => {
   );
 };
 
-export default CreateAssignment;
+export default UpdateAssignment;
