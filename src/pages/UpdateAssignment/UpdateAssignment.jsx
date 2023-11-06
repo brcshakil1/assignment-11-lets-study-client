@@ -3,48 +3,35 @@ import Title from "../../components/Title/Title";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Container from "./../../components/ui/Container";
-import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-import useAxios from "../../hooks/useAxios";
-// import { useMutation } from "@tanstack/react-query";
+// import useAxios from "../../hooks/useAxios";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const UpdateAssignment = () => {
   const [startDate, setStartDate] = useState(new Date());
-  const { user } = useAuth();
-  const axios = useAxios();
+  //   const axios = useAxios();
+  const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
-  const [marks, setMarks] = useState("");
-  const [difficulty, setDifficulty] = useState("easy");
-  const date = startDate.toLocaleDateString();
-  const creatorEmail = user?.email;
-  console.log(date);
-
-  // console.log(createdAssignment);
-
-  // const { mutate } = useMutation({
-  //   mutationKey: ["create-assignment"],
-  //   mutationFn: (createdAssignmentData) => {
-  //     return axios.post("/user/create-assignment", createdAssignmentData);
-  //   },
-  //   onSuccess: () => toast.success("Assignment created successfully!"),
-  // });
-
-  // console.log(mutate);
+  const assignment = useLoaderData();
 
   const handleUpdateAssignment = (e) => {
     e.preventDefault();
 
-    const createdAssignment = {
+    const form = e.target;
+    const title = form.title.value;
+    const image = form.image.value;
+    const description = form.description.value;
+    const marks = form.marks.value;
+    const difficulty = form.difficulty.value;
+    const date = startDate.toLocaleDateString();
+
+    const updatedAssignment = {
       title,
       image,
       description,
       marks,
       difficulty,
       date,
-      creatorEmail,
     };
 
     if (marks > 100 || marks < 30) {
@@ -57,10 +44,18 @@ const UpdateAssignment = () => {
       );
     }
 
-    axios.put("/user/update-assignment", createdAssignment).then((res) => {
-      console.log(res.data);
-      toast.success("Successfully created an assignment");
-    });
+    fetch(`http://localhost:5000/api/v1/all-assignments/${assignment?._id}`, {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(updatedAssignment),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Successfully updated assignment!");
+          navigate("/assignments");
+        }
+      });
   };
 
   return (
@@ -78,7 +73,7 @@ const UpdateAssignment = () => {
                 </span>
               </label>
               <input
-                onChange={(e) => setTitle(e.target.value)}
+                defaultValue={assignment?.title}
                 type="text"
                 placeholder="title"
                 name="title"
@@ -93,7 +88,7 @@ const UpdateAssignment = () => {
                 </span>
               </label>
               <input
-                onChange={(e) => setImage(e.target.value)}
+                defaultValue={assignment?.image}
                 type="text"
                 placeholder="image url"
                 name="image"
@@ -108,7 +103,7 @@ const UpdateAssignment = () => {
                 </span>
               </label>
               <textarea
-                onChange={(e) => setDescription(e.target.value)}
+                defaultValue={assignment?.description}
                 className="p-3"
                 name="description"
                 placeholder="description"
@@ -123,7 +118,7 @@ const UpdateAssignment = () => {
                   </span>
                 </label>
                 <input
-                  onChange={(e) => setMarks(e.target.value)}
+                  defaultValue={assignment?.marks}
                   type="number"
                   placeholder="marks"
                   name="marks"
@@ -140,10 +135,9 @@ const UpdateAssignment = () => {
                   </span>
                 </label>
                 <select
-                  onChange={(e) => setDifficulty(e.target.value)}
+                  defaultValue={assignment?.difficulty}
                   className="input input-ed rounded-sm"
                   name="difficulty"
-                  defaultValue="easy"
                   id="difficulty"
                   required
                 >
@@ -160,6 +154,7 @@ const UpdateAssignment = () => {
                 </label>
                 <DatePicker
                   selected={startDate}
+                  defaultValue={assignment?.date}
                   onChange={(date) => setStartDate(date)}
                   className="input input-ed rounded-sm w-full"
                   required
@@ -168,7 +163,7 @@ const UpdateAssignment = () => {
             </div>
             <div className="form-control mt-6">
               <button className="btn bg-gradient-to-r from-[#3144D7] to-[#801C98] font-semibold text-white border-none">
-                Create Assignment
+                Update Assignment
               </button>
             </div>
           </form>

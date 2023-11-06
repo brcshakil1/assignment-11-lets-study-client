@@ -10,11 +10,6 @@ const Assignments = () => {
   const [difficulty, setDifficulty] = useState("");
   const axios = useAxios();
 
-  // const getAssignments = async () => {
-  //   const res = ;
-  //   return res;
-  // };
-
   const {
     isPending,
     error,
@@ -31,12 +26,11 @@ const Assignments = () => {
   if (error) {
     return <p>{error}.</p>;
   }
-  // console.log(assignment?.data, isPending, error);
-  console.log(difficulty);
+
   return (
     <Container>
       <div className="min-h-screen py-6">
-        <div className="w-full h-[400px] relative rounded-lg overflow-hidden">
+        <div className="w-full md:h-[400px] h-[300px] relative rounded-lg overflow-hidden">
           <img className="w-full h-full object-cover " src={bannerImg} alt="" />
           <div className="absolute w-full h-full grid place-items-center bg-[#000000b3] top-0 left-0">
             <h2 className="text-[#cfccd5] text-3xl font-bold">
@@ -48,16 +42,15 @@ const Assignments = () => {
           <Title>Assignments</Title>
         </div>
         <div>
-          <div className="pt-10 pb-5">
+          <div className="pt-10 pb-5 flex flex-col gap-2">
+            <label className="text-xl font-semibold text-[#cfccd5]">
+              Filter:{" "}
+            </label>
             <select
-              name=""
               onChange={(e) => setDifficulty(e.target.value)}
-              defaultValue="Filter by difficulty"
-              className="border-0 rounded-md p-2"
+              className="border-0 rounded-md p-2 w-28"
+              defaultValue={difficulty}
             >
-              <option disabled selected>
-                Filter by difficulty
-              </option>
               <option value="">All</option>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>

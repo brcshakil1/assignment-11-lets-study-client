@@ -16,15 +16,20 @@ const AssignmentCard = ({ assignment }) => {
           <p>Marks: {marks}</p>
           <p className="capitalize">Difficulty: {difficulty}</p>
         </div>
-        <div className="flex justify-center gap-2 flex-col md:flex-row pt-3">
-          <button className="border  py-2 px-4 rounded-md text-white font-semibold bg-[#801C98]">
-            View Assignment
-          </button>
-          <Link to={`/update-assignment/${_id}`}>
-            <button className="border py-2 px-4 rounded-md text-white font-semibold bg-[#801C98]">
-              Update Assignment
+        <div className="flex justify-between gap-2 flex-col md:flex-row pt-3">
+          <Link to={`/view-assignment/${_id}`}>
+            <button className="  py-2 px-4 rounded-md text-white font-semibold bg-[#801C98]">
+              View Assignment
             </button>
           </Link>
+          {user?.email === creatorEmail && (
+            <Link
+              to={`/update-assignment/${_id}`}
+              className="text-center py-2 px-4 rounded-md text-white font-semibold bg-[#801C98]"
+            >
+              <button className="">Update Assignment</button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

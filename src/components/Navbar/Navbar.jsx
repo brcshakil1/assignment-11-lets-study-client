@@ -130,7 +130,7 @@ const Navbar = () => {
             <div
               className={`${
                 isTrue ? " translate-x-0" : "-translate-x-[1060px]"
-              } w-full h-full absolute top-0 left-0 flex lg:hidden transition-transform ease-in-out duration-1000  bg-[#00000065]`}
+              } w-full h-full absolute z-30 top-0 left-0 flex lg:hidden transition-transform ease-in-out duration-1000  bg-[#00000065]`}
             >
               <ul className="w-2/3 md:w-1/2 bg-white text-[#10002B] h-full py-16 px-5">
                 {navLinks}
@@ -161,7 +161,7 @@ const Navbar = () => {
               <div
                 className={`${
                   profileIsTrue ? "translate-x-0" : "translate-x-full"
-                } w-full md:w-1/3 h-full absolute right-0 top-0 transition-transform ease-in-out duration-1000 `}
+                } w-full md:w-1/3 z-30 h-full absolute right-0 top-0 transition-transform ease-in-out duration-1000 `}
               >
                 <div className=" bg-white text-[#10002B] w-full h-full py-16 px-5 relative">
                   <AiOutlineClose

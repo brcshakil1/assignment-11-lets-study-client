@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar/Navbar";
 
 const MainLayout = () => {
   return (
-    <div className="relative overflow-hidden border border-red-300">
+    <div className="relative overflow-hidden ">
       <Navbar />
       <Outlet />
     </div>

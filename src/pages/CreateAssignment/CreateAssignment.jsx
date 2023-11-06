@@ -19,20 +19,8 @@ const CreateAssignment = () => {
   const [marks, setMarks] = useState("");
   const [difficulty, setDifficulty] = useState("easy");
   const date = startDate.toLocaleDateString();
-  const creatorEmail = user?.email;
-  console.log(date);
-
-  // console.log(createdAssignment);
-
-  // const { mutate } = useMutation({
-  //   mutationKey: ["create-assignment"],
-  //   mutationFn: (createdAssignmentData) => {
-  //     return axios.post("/user/create-assignment", createdAssignmentData);
-  //   },
-  //   onSuccess: () => toast.success("Assignment created successfully!"),
-  // });
-
-  // console.log(mutate);
+  const name = user?.displayName;
+  const email = user?.email;
 
   const handleCreateAssignment = (e) => {
     e.preventDefault();
@@ -44,7 +32,8 @@ const CreateAssignment = () => {
       marks,
       difficulty,
       date,
-      creatorEmail,
+      name,
+      email,
     };
 
     if (marks > 100 || marks < 30) {
