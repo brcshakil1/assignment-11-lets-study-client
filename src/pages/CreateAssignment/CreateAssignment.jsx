@@ -6,48 +6,78 @@ import Container from "./../../components/ui/Container";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import useAxios from "../../hooks/useAxios";
+import { useMutation } from "@tanstack/react-query";
 
 const CreateAssignment = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { user } = useAuth();
   const axios = useAxios();
 
-  const handleCreateAssignment = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const title = form.title.value;
-    const image = form.image.value;
-    const description = form.description.value;
-    const marks = form.marks.value;
-    const difficulty = form.difficulty.value;
-    const date = startDate;
-    const creatorEmail = user?.email;
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
+  const [marks, setMarks] = useState("");
+  const [difficulty, setDifficulty] = useState("easy");
+  const date = startDate;
+  const creatorEmail = user?.email;
 
-    if (date < new Date()) {
-      return toast.error("You can't select past dates");
-    }
-
-    if (marks > 100 || marks < 30) {
-      return toast.error("Total assignment marks must be between 30 to 100");
-    }
-
-    const createdAssignment = {
-      title,
-      image,
-      description,
-      marks,
-      difficulty,
-      date,
-      creatorEmail,
-    };
-
-    axios.post("/create-assignment", createdAssignment).then((res) => {
-      console.log(res.data);
-      toast.success("Successfully created an assignment");
-    });
-
-    console.log(createdAssignment);
+  const createdAssignment = {
+    title,
+    image,
+    description,
+    marks,
+    difficulty,
+    date,
+    creatorEmail,
   };
+
+  // console.log(createdAssignment);
+
+  const { mutate } = useMutation({
+    mutationKey: ["create-assignment"],
+    mutationFn: (createdAssignmentData) => {
+      return axios.post("/user/create-assignment", createdAssignmentData);
+    },
+    onSuccess: () => toast.success("Assignment created successfully!"),
+  });
+
+  // console.log(mutate);
+
+  // const handleCreateAssignment = (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const title = form.title.value;
+  //   const image = form.image.value;
+  //   const description = form.description.value;
+  //   const marks = form.marks.value;
+  //   const difficulty = form.difficulty.value;
+  //   const date = startDate;
+  //   const creatorEmail = user?.email;
+
+  //   if (date < new Date()) {
+  //     return toast.error("You can't select past dates");
+  //   }
+
+  //   if (marks > 100 || marks < 30) {
+  //     return toast.error("Total assignment marks must be between 30 to 100");
+  //   }
+
+  //   //   const createdAssignment = {
+  //   //     title,
+  //   //     image,
+  //   //     description,
+  //   //     marks,
+  //   //     difficulty,
+  //   //     date,
+  //   //     creatorEmail,
+  //   //   };
+
+  //   //   // axios.post("/create-assignment", createdAssignment).then((res) => {
+  //   //   //   console.log(res.data);
+  //   //   //   toast.success("Successfully created an assignment");
+  //   //   // });
+  // };
+
   return (
     <Container>
       <div className="hero min-h-screen py-10 md:py-14">
@@ -55,7 +85,7 @@ const CreateAssignment = () => {
           <div className=" pb-2">
             <Title>Create an assignment</Title>
           </div>
-          <form onSubmit={handleCreateAssignment}>
+          <div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text text-lg text-[#9f99aa] font-semibold">
@@ -63,6 +93,7 @@ const CreateAssignment = () => {
                 </span>
               </label>
               <input
+                onChange={(e) => setTitle(e.target.value)}
                 type="text"
                 placeholder="title"
                 name="title"
@@ -77,6 +108,7 @@ const CreateAssignment = () => {
                 </span>
               </label>
               <input
+                onChange={(e) => setImage(e.target.value)}
                 type="text"
                 placeholder="image url"
                 name="image"
@@ -91,6 +123,7 @@ const CreateAssignment = () => {
                 </span>
               </label>
               <textarea
+                onChange={(e) => setDescription(e.target.value)}
                 className="p-3"
                 name="description"
                 placeholder="description"
@@ -104,6 +137,7 @@ const CreateAssignment = () => {
                   </span>
                 </label>
                 <input
+                  onChange={(e) => setMarks(e.target.value)}
                   type="number"
                   placeholder="marks"
                   name="marks"
@@ -120,6 +154,7 @@ const CreateAssignment = () => {
                   </span>
                 </label>
                 <select
+                  onChange={(e) => setDifficulty(e.target.value)}
                   className="input input-ed rounded-sm"
                   name="difficulty"
                   defaultValue="easy"
@@ -144,11 +179,14 @@ const CreateAssignment = () => {
               </div>
             </div>
             <div className="form-control mt-6">
-              <button className="btn bg-gradient-to-r from-[#3144D7] to-[#801C98] font-semibold text-white border-none">
+              <button
+                onClick={() => mutate(createdAssignment)}
+                className="btn bg-gradient-to-r from-[#3144D7] to-[#801C98] font-semibold text-white border-none"
+              >
                 Create Assignment
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </Container>
