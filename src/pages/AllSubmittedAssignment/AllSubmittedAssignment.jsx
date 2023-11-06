@@ -34,6 +34,28 @@ const AllSubmittedAssignment = () => {
     return <p>{error}.</p>;
   }
 
+  const handleGivingMark = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const myMarks = form.marks.value;
+    const feedback = form.feedback.value;
+
+    const  = {myMarks, feedback}
+
+    fetch(`http://localhost:5000/api/v1/all-assignments/${assignment?._id}`, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(updatedAssignment),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount > 0) {
+            toast.success("Successfully updated assignment!");
+            navigate("/assignments");
+          }
+        });
+  };
+
   return (
     <Container>
       <div className="min-h-screen py-6">
@@ -85,7 +107,7 @@ const AllSubmittedAssignment = () => {
           </table>
           {/* Open the modal using document.getElementById('ID').showModal() method */}
           <dialog id="my_modal_2" className="modal">
-            <form className="modal-box">
+            <form onSubmit={handleGivingMark} className="modal-box">
               <div>
                 <h3>
                   <a href={pdfLink} className="text-blue-600">
