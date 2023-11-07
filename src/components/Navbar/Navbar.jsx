@@ -44,7 +44,7 @@ const Navbar = () => {
             <NavLink
               className="lg:text-white hover:text-[#9F99AA]"
               onClick={() => setIsTrue(false)}
-              to="/submitted-assignment"
+              to="/all-submitted-assignments"
             >
               Submitted Assignment
             </NavLink>

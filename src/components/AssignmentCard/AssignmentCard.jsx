@@ -1,9 +1,7 @@
 import { PropTypes } from "prop-types";
 import { Link } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 const AssignmentCard = ({ assignment }) => {
-  const { user } = useAuth();
-  const { _id, title, image, marks, difficulty, creatorEmail } = assignment;
+  const { _id, title, image, marks, difficulty } = assignment;
 
   return (
     <div className=" w-full rounded-md overflow-hidden shadow-md hover:shadow-base-300 hover:scale-105 transition-transform ease-in-out duration-500 bg-base-100 ">
@@ -22,14 +20,13 @@ const AssignmentCard = ({ assignment }) => {
               View Assignment
             </button>
           </Link>
-          {user?.email === creatorEmail && (
-            <Link
-              to={`/update-assignment/${_id}`}
-              className="text-center py-2 px-4 rounded-md text-white font-semibold bg-[#801C98]"
-            >
-              <button className="">Update Assignment</button>
-            </Link>
-          )}
+
+          <Link
+            to={`/update-assignment/${_id}`}
+            className="text-center py-2 px-4 rounded-md text-white font-semibold bg-[#801C98]"
+          >
+            <button className="">Update Assignment</button>
+          </Link>
         </div>
       </div>
     </div>

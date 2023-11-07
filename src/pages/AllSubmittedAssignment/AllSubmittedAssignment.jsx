@@ -3,15 +3,19 @@ import useAxios from "../../hooks/useAxios";
 import Title from "../../components/Title/Title";
 import Container from "./../../components/ui/Container";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const AllSubmittedAssignment = () => {
   const [pdfLink, setPdfLink] = useState("");
   const [examinee, setExaminee] = useState("");
   const [marksExm, setMarksExm] = useState("");
+  const [examineeId, setExamineeId] = useState("");
 
-  const handleExaminee = (link, name, marks) => {
+  const handleExaminee = (id, link, name, marks) => {
+    setExamineeId(id);
     setPdfLink(link);
-    setExaminee(name), setMarksExm(marks);
+    setExaminee(name);
+    setMarksExm(marks);
   };
 
   const axios = useAxios();
@@ -19,12 +23,13 @@ const AllSubmittedAssignment = () => {
     isPending,
     error,
     data: assignment,
+    refetch,
   } = useQuery({
     queryKey: ["all-submitted-assignment"],
     queryFn: () => axios.get(`/user/all-submitted-assignment?status=pending`),
   });
 
-  console.log(pdfLink, examinee, marksExm);
+  console.log(assignment);
 
   if (isPending) {
     return <p>Loading...</p>;
@@ -37,23 +42,24 @@ const AllSubmittedAssignment = () => {
   const handleGivingMark = (e) => {
     e.preventDefault();
     const form = e.target;
-    const myMarks = form.marks.value;
+    const obtainMarks = form.marks.value;
     const feedback = form.feedback.value;
+    const status = "confirmed";
+    console.log(examineeId, obtainMarks, feedback, status);
 
-    const  = {myMarks, feedback}
-
-    fetch(`http://localhost:5000/api/v1/all-assignments/${assignment?._id}`, {
-        method: "PUT",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(updatedAssignment),
+    axios
+      .put(`/user/all-submitted-assignment/${examineeId}`, {
+        obtainMarks,
+        feedback,
+        status,
       })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.modifiedCount > 0) {
-            toast.success("Successfully updated assignment!");
-            navigate("/assignments");
-          }
-        });
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.modifiedCount > 0) {
+          toast.success("Done!");
+          refetch();
+        }
+      });
   };
 
   return (
@@ -90,6 +96,7 @@ const AllSubmittedAssignment = () => {
                     <button
                       onClick={() => {
                         handleExaminee(
+                          data?._id,
                           data?.pdf,
                           data?.examineeName,
                           data?.marks
@@ -126,7 +133,7 @@ const AllSubmittedAssignment = () => {
                 <input
                   type="number"
                   placeholder="marks"
-                  name="mark"
+                  name="marks"
                   defaultValue={marksExm}
                   className="border-2 p-3 rounded-md"
                   required
