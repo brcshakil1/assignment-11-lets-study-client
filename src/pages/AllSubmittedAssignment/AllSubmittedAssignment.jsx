@@ -52,13 +52,6 @@ const AllSubmittedAssignment = () => {
     const status = "confirmed";
     console.log(examineeId, obtainMarks, feedback, status);
 
-    if (obtainMarks < 0) {
-      return toast.error("Marks have to be positive value");
-    }
-    if (obtainMarks > marksExm) {
-      return toast.error(`Marks can't be more than ${marksExm}`);
-    }
-
     navigate("/all-submitted-assignments");
 
     axios
@@ -88,7 +81,6 @@ const AllSubmittedAssignment = () => {
               {/* head */}
               <thead>
                 <tr>
-                  <th></th>
                   <th className="text-white">Title</th>
                   <th className="text-white">Examinee</th>
                   <th className="text-white">Marks</th>
@@ -97,9 +89,8 @@ const AllSubmittedAssignment = () => {
               </thead>
               <tbody>
                 {/* row 1 */}
-                {assignment?.data?.map((data, idx) => (
+                {assignment?.data?.map((data) => (
                   <tr key={data?._id}>
-                    <th>{idx + 1}</th>
                     <td>{data?.title}</td>
                     <td className="flex flex-col">
                       <span>{data?.examineeName}</span>
@@ -178,7 +169,7 @@ const AllSubmittedAssignment = () => {
                   />
                   <input type="text" />
                 </div>
-                <div className="form-control">
+                <div className="form-control ">
                   <button
                     className="
               btn bg-gradient-to-r w-full md:w-auto from-[#3144D7] to-[#801C98] font-semibold text-white border-none"

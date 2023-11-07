@@ -6,12 +6,14 @@ import useAuth from "../../hooks/useAuth";
 import MySubmittedAssignment from "../MySubmittedAssignment/MySubmittedAssignment";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
+import MyCreatedAssignment from "../MyCreatedAssignment/MyCreatedAssignment";
 
-const MyAssignment = () => {
+const MySubmission = () => {
   const { user } = useAuth();
   console.log(user?.email);
   const axios = useAxios();
   //   get all submitted assignment
+
   const {
     isPending,
     error,
@@ -29,9 +31,6 @@ const MyAssignment = () => {
   if (error) {
     return <Error />;
   }
-
-  console.log(submittedAssignment);
-
   return (
     <Container>
       <div className="min-h-screen">
@@ -54,11 +53,13 @@ const MyAssignment = () => {
               </div>
             </div>
           )}
-          <div></div>
+          <div>
+            <MyCreatedAssignment />
+          </div>
         </div>
       </div>
     </Container>
   );
 };
 
-export default MyAssignment;
+export default MySubmission;

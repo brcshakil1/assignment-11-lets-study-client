@@ -153,7 +153,7 @@ const Navbar = () => {
             <div>
               <img
                 onClick={handleProfile}
-                src={user ? user?.photoURL : userImg}
+                src={user?.photoURL || userImg}
                 alt="userName"
                 title={user && user?.displayName}
                 className="w-9 h-9 rounded-full border-2 border-[#2c1d55] shadow-md hover:shadow-[#554481]"

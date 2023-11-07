@@ -15,6 +15,7 @@ const Assignments = () => {
     isPending,
     error,
     data: assignment,
+    refetch,
   } = useQuery({
     queryKey: ["all-assignment", difficulty],
     queryFn: () => axios.get(`/all-assignments?difficulty=${difficulty}`),
@@ -60,7 +61,11 @@ const Assignments = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-10">
             {assignment?.data?.map((assignment) => (
-              <AssignmentCard key={assignment._id} assignment={assignment} />
+              <AssignmentCard
+                key={assignment._id}
+                refetch={refetch}
+                assignment={assignment}
+              />
             ))}
           </div>
         </div>

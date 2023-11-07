@@ -28,7 +28,11 @@ const Router = createBrowserRouter([
       },
       {
         path: "/all-submitted-assignments",
-        element: <AllSubmittedAssignment />,
+        element: (
+          <PrivetRoute>
+            <AllSubmittedAssignment />
+          </PrivetRoute>
+        ),
       },
       {
         path: "/view-assignment/:id",
