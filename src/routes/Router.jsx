@@ -9,11 +9,14 @@ import Assignments from "../pages/Assignments/Assignments";
 import UpdateAssignment from "../pages/UpdateAssignment/UpdateAssignment";
 import ViewAssignment from "../pages/ViewAssignment/ViewAssignment";
 import AllSubmittedAssignment from "../pages/AllSubmittedAssignment/AllSubmittedAssignment";
+import MyAssignment from "../pages/MyAssignment/MyAssignment";
+import Error from "../components/Error/Error";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -52,6 +55,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivetRoute>
             <CreateAssignment />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/my-assignment",
+        element: (
+          <PrivetRoute>
+            <MyAssignment />
           </PrivetRoute>
         ),
       },

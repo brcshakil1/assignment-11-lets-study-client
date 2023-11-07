@@ -1,17 +1,14 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import PropTypes from "prop-types";
+import Loading from "../components/Loading/Loading";
 
 const PrivetRoute = ({ children }) => {
   const { user, loading } = useAuth();
   console.log(loading);
 
   if (loading) {
-    return (
-      <div className="min-h-[80vh]">
-        <p>Loading...</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (user) {

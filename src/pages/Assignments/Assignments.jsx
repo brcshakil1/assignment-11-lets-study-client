@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import AssignmentCard from "../../components/AssignmentCard/AssignmentCard";
 import { useState } from "react";
+import Loading from "../../components/Loading/Loading";
 
 const Assignments = () => {
   const [difficulty, setDifficulty] = useState("");
@@ -20,7 +21,7 @@ const Assignments = () => {
   });
 
   if (isPending) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (error) {
