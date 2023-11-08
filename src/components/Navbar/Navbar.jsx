@@ -185,15 +185,6 @@ const Navbar = () => {
                       <NavLink
                         className="text-[#221546]"
                         onClick={() => setProfileIsTrue(false)}
-                        to="/my-profile"
-                      >
-                        My Profile
-                      </NavLink>
-                    </li>
-                    <li className="border-b-2 lg:border-none py-4 lg:py-0 text-lg lg:text-base font-semibold">
-                      <NavLink
-                        className="text-[#221546]"
-                        onClick={() => setProfileIsTrue(false)}
                         to="/my-assignment"
                       >
                         My Assignment
@@ -206,7 +197,7 @@ const Navbar = () => {
                       }}
                       className="border-b-2 lg:border-none py-4 lg:py-0 text-lg lg:text-base font-semibold"
                     >
-                      <a className="text-[#221546]">Logout</a>
+                      <a className="text-[#221546] cursor-pointer">Logout</a>
                     </li>
                   </ul>
                 </div>

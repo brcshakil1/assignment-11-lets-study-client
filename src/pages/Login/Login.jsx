@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login3.png";
 import Title from "../../components/Title/Title";
 import Container from "../../components/ui/Container";
@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 const Login = () => {
   const { signInUser, googleSignIn, githubSignIn } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,7 +21,7 @@ const Login = () => {
     signInUser(email, pass)
       .then((result) => {
         if (result) toast.success("logged in successfully!");
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => {
         console.log(err.message);
@@ -32,7 +34,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         toast.success("logged in successfully!");
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => toast.error(err.message));
   };
@@ -42,7 +44,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         toast.success("logged in successfully!");
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => console.log(err.message));
   };
