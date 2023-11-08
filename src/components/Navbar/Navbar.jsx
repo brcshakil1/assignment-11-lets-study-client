@@ -4,6 +4,7 @@ import userImg from "../../assets/user/user.png";
 import useAuth from "../../hooks/useAuth";
 import { AiOutlineClose } from "react-icons/ai";
 import Container from "../ui/Container";
+import logo from "../../assets/images/logo-3.png";
 
 const Navbar = () => {
   const [isTrue, setIsTrue] = useState(false);
@@ -142,7 +143,7 @@ const Navbar = () => {
             </div>
           </div>
           <Link to="/" className="normal-case text-xl cursor-pointer">
-            Let{`'`}s Study
+            <img className="w-[80px]" src={logo} alt="logo" />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

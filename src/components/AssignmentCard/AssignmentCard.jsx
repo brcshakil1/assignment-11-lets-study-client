@@ -33,7 +33,7 @@ const AssignmentCard = ({ assignment, refetch }) => {
           <p>Marks: {marks}</p>
           <p className="capitalize">Difficulty: {difficulty}</p>
         </div>
-        <div className=" flex  gap-3 flex-row justify-center ">
+        <div className=" flex  gap-3 flex-row justify-center pt-3">
           <Link
             to={`/view-assignment/${_id}`}
             className=" py-2 px-4 text-center rounded-md text-white font-semibold bg-[#801C98] "
