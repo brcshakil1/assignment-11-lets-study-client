@@ -2,14 +2,14 @@ import Title from "../../components/Title/Title";
 import loginImg from "../../assets/images/login3.png";
 import Container from "../../components/ui/Container";
 import useAuth from "../../hooks/useAuth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { BsGoogle, BsGithub } from "react-icons/bs";
 
 const Register = () => {
   const { createUser, googleSignIn, githubSignIn, updateUserProfile } =
     useAuth();
-
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -48,7 +48,7 @@ const Register = () => {
           updateUserProfile(result.user, userProfile);
         }
         toast.success("User created successfully!");
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => toast.error(err.message));
   };
@@ -58,7 +58,7 @@ const Register = () => {
       .then((result) => {
         console.log(result.user);
         toast.success("User created successfully!");
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => console.log(err.message));
   };
@@ -67,7 +67,7 @@ const Register = () => {
       .then((result) => {
         console.log(result.user);
         toast.success("User created successfully!");
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => console.log(err.message));
   };

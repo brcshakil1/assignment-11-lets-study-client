@@ -10,7 +10,6 @@ const Login = () => {
   const { signInUser, googleSignIn, githubSignIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   const handleSubmit = (e) => {
     e.preventDefault();
