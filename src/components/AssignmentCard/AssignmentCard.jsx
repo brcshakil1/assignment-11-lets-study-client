@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import { useState } from "react";
 const AssignmentCard = ({ assignment, refetch }) => {
-  const { user } = useAuth();
   const { _id, title, image, marks, difficulty, email } = assignment;
+  const { user } = useAuth();
+  const [isDisable, setIsDisable] = useState(
+    user?.email && user?.email === email ? false : true
+  );
   const axios = useAxios();
-  console.log(email);
+
   const handleDelete = () => {
     axios.delete(`/all-assignments/${_id}`).then((res) => {
       console.log(res.data);
@@ -17,8 +21,6 @@ const AssignmentCard = ({ assignment, refetch }) => {
       }
     });
   };
-
-  console.log(user?.email, email);
 
   return (
     <div className=" w-full rounded-md overflow-hidden shadow-md hover:shadow-base-300 hover:scale-105 transition-transform ease-in-out duration-500 bg-base-100 ">
@@ -38,24 +40,25 @@ const AssignmentCard = ({ assignment, refetch }) => {
           >
             <button>Details</button>
           </Link>
-          {user?.email && user?.email === email ? (
-            <>
-              <Link
-                to={`/update-assignment/${_id}`}
-                className="text-center py-2 px-4 rounded-md text-white font-semibold bg-[#801C98]"
-              >
-                <button className="">Update</button>
-              </Link>
-              <button
-                onClick={handleDelete}
-                className="  py-2 px-4 rounded-md text-white font-semibold bg-[#801C98]"
-              >
-                Delete
-              </button>
-            </>
-          ) : (
-            <></>
-          )}
+          <Link
+            to={`/update-assignment/${_id}`}
+            className={`rounded-md text-white font-semibold  ${
+              isDisable ? "bg-[#a684ad]" : "bg-[#801C98]"
+            }`}
+          >
+            <button disabled={isDisable} className="py-2 px-4 ">
+              Update
+            </button>
+          </Link>
+          <button
+            disabled={isDisable}
+            onClick={handleDelete}
+            className={`py-2 px-4 rounded-md text-white font-semibold  ${
+              isDisable ? "bg-[#a377ad]" : "bg-[#801C98]"
+            }`}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
