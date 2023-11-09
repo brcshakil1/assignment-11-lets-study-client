@@ -7,6 +7,7 @@ import Loading from "../../components/Loading/Loading";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const AllSubmittedAssignment = () => {
   const [isModalTrue, setIsModalTrue] = useState(false);
@@ -68,6 +69,9 @@ const AllSubmittedAssignment = () => {
   // refetch();
   return (
     <div className="relative">
+      <Helmet>
+        <title>Submitted Assignment</title>
+      </Helmet>
       <Container>
         <div className="min-h-screen py-6 ">
           <div className="text-center pt-10 md:pt-16">

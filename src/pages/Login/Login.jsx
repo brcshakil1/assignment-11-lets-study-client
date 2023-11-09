@@ -5,6 +5,7 @@ import Container from "../../components/ui/Container";
 import useAuth from "./../../hooks/useAuth";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const { signInUser, googleSignIn, githubSignIn } = useAuth();
@@ -50,6 +51,9 @@ const Login = () => {
 
   return (
     <div className="hero min-h-screen">
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
       <Container>
         <div className="block md:flex flex-col-reverse md:flex-row gap-5 my-10 md:my-14">
           <div className="w-1/2 hidden md:block">

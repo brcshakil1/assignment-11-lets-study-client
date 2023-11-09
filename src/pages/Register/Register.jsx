@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { BsGoogle, BsGithub } from "react-icons/bs";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const { createUser, googleSignIn, githubSignIn, updateUserProfile } =
@@ -74,6 +75,9 @@ const Register = () => {
 
   return (
     <div className="hero min-h-screen">
+      <Helmet>
+        <title>Register</title>
+      </Helmet>
       <Container>
         <div className="block md:flex flex-col-reverse md:flex-row gap-5 my-10 md:my-14">
           <div className="w-1/2 hidden md:block">

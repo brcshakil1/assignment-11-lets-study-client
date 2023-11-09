@@ -7,6 +7,7 @@ import MySubmittedAssignment from "../MySubmittedAssignment/MySubmittedAssignmen
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const MyAssignment = () => {
   const { user } = useAuth();
@@ -35,6 +36,9 @@ const MyAssignment = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>My Assignment</title>
+      </Helmet>
       {submittedAssignment?.data?.length ? (
         <div className="min-h-screen">
           <div className="text-center py-10">

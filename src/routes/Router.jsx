@@ -50,9 +50,7 @@ const Router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://lets-study-server.vercel.app/api/v1/all-assignments/${params.id}`
-          ),
+          fetch(`http://localhost:5000/api/v1/all-assignments/${params.id}`),
       },
       {
         path: "/update-assignment/:id",
@@ -62,9 +60,7 @@ const Router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://lets-study-server.vercel.app/api/v1/all-assignments/${params.id}`
-          ),
+          fetch(`http://localhost:5000/api/v1/all-assignments/${params.id}`),
       },
       {
         path: "/create-assignment",

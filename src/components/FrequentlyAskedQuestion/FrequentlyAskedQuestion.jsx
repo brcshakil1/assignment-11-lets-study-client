@@ -1,30 +1,17 @@
-import Error from "../Error/Error";
-import Loading from "../Loading/Loading";
-import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../hooks/useAxios";
 import Fqa from "../Fqa/Fqa";
 import Title from "../Title/Title";
 import Container from "../ui/Container";
 import fqa from "../../assets/images/fqa-1.jpg";
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const FrequentlyAskedQuestion = () => {
-  const axios = useAxios();
-  const {
-    isPending,
-    error,
-    data: fqas,
-  } = useQuery({
-    queryKey: ["fqas"],
-    queryFn: () => axios.get("/fqas"),
-  });
+  const [fqas, setFqas] = useState([]);
+  useEffect(() => {
+    axios.get("/fqas.json").then((res) => setFqas(res.data));
+  }, []);
   console.log(fqas);
-  if (isPending) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <Error />;
-  }
   return (
     <Container>
       <div className="pb-14">
@@ -36,8 +23,8 @@ const FrequentlyAskedQuestion = () => {
             <img src={fqa} alt="" className="w-full rounded-md" />
           </div>
           <div className="flex-1">
-            {fqas?.data?.map((fqa) => (
-              <Fqa key={fqa?._id} fqa={fqa} />
+            {fqas?.map((fqa, idx) => (
+              <Fqa key={idx} fqa={fqa} />
             ))}
           </div>
         </div>

@@ -6,6 +6,7 @@ import Container from "./../../components/ui/Container";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import useAxios from "../../hooks/useAxios";
+import { Helmet } from "react-helmet";
 // import { useMutation } from "@tanstack/react-query";
 
 const CreateAssignment = () => {
@@ -54,6 +55,9 @@ const CreateAssignment = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>Create Assignment</title>
+      </Helmet>
       <div className="hero min-h-screen py-10 md:py-14">
         <div className="w-full px-4 md:px-8 shadow-md md:w-1/2 my-auto py-10 shadow-[#4f4370] ">
           <div className=" pb-2">
