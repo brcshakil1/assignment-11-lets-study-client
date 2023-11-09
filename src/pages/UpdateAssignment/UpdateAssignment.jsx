@@ -45,13 +45,12 @@ const UpdateAssignment = () => {
     }
 
     fetch(
-      `http://localhost:5000/api/v1/all-assignments/${assignment?._id}`,
+      `https://lets-study-server.vercel.app/api/v1/all-assignments/${assignment?._id}`,
       {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(updatedAssignment),
-      },
-      { credentials: "include" }
+      }
     )
       .then((res) => res.json())
       .then((data) => {

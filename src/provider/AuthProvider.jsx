@@ -55,23 +55,23 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const userEmail = currentUser?.email || user?.email;
+      // const userEmail = currentUser?.email || user?.email;
 
       setLoading(false);
       setUser(currentUser);
 
       // jwt
-      if (currentUser) {
-        const loggerEmail = { email: userEmail };
-        axios.post("/auth/jwt-token", loggerEmail).then((res) => {
-          console.log(res.data);
-        });
-      } else {
-        const loggerEmail = { email: userEmail };
-        axios.post("/user/logout", loggerEmail).then((res) => {
-          console.log(res.data);
-        });
-      }
+      // if (currentUser) {
+      //   const loggerEmail = { email: userEmail };
+      //   axios.post("/auth/jwt-token", loggerEmail).then((res) => {
+      //     console.log(res.data);
+      //   });
+      // } else {
+      //   const loggerEmail = { email: userEmail };
+      //   axios.post("/user/logout", loggerEmail).then((res) => {
+      //     console.log(res.data);
+      //   });
+      // }
     });
 
     return () => {
